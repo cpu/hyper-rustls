@@ -32,6 +32,17 @@ fn wait_for_server(addr: &str) {
     panic!("failed to connect to {:?} after 10 tries", addr);
 }
 
+fn curl_version() -> String {
+    String::from_utf8_lossy(
+        &Command::new("curl")
+            .arg("--version")
+            .output()
+            .expect("cannot run curl to collect --version")
+            .stdout,
+    )
+    .to_string()
+}
+
 #[test]
 fn client() {
     let rc = client_command()
@@ -62,6 +73,7 @@ fn server() {
     srv.kill().unwrap();
 
     if !output.status.success() {
+        println!("curl version: {}", curl_version());
         println!("curl stderr:\n{}", String::from_utf8_lossy(&output.stderr));
     }
 
