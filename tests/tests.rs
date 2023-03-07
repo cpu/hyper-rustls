@@ -43,12 +43,13 @@ fn server() {
     let output = Command::new("curl")
         .arg("--insecure")
         .arg("--http1.0")
-        .arg("--silent")
+        .arg("--verbose")
         .arg("https://localhost:1337")
         .output()
         .expect("cannot run curl");
 
-    println!("client output: {:?}", output.stdout);
+    let str_output = String::from_utf8_lossy(&*output.stdout);
+    println!("client output: {:?}", str_output);
     assert_eq!(output.stdout, b"Try POST /echo\n");
 
     srv.kill().unwrap();
