@@ -1,4 +1,5 @@
-use std::env;
+use std::{env, io};
+use std::io::Write;
 use std::path::PathBuf;
 use std::process::Command;
 use std::thread;
@@ -40,6 +41,20 @@ fn server() {
 
     thread::sleep(time::Duration::from_secs(1));
 
+    let output = Command::new("which")
+        .arg("curl")
+        .output()
+        .expect("couldn't which curl");
+    let str_output = String::from_utf8_lossy(&*output.stdout);
+    println!("curl bin: {:?}", str_output);
+
+    let output = Command::new("curl")
+        .arg("--version")
+        .output()
+        .expect("failed to get curl version");
+    let str_output = String::from_utf8_lossy(&*output.stdout);
+    println!("curl version: {:?}", str_output);
+
     let output = Command::new("curl")
         .arg("--insecure")
         .arg("--http1.0")
@@ -47,6 +62,10 @@ fn server() {
         .arg("https://localhost:1337")
         .output()
         .expect("cannot run curl");
+
+    println!("status: {}", output.status);
+    io::stdout().write_all(&output.stdout).unwrap();
+    io::stderr().write_all(&output.stderr).unwrap();
 
     let str_output = String::from_utf8_lossy(&*output.stdout);
     println!("client output: {:?}", str_output);
