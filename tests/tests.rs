@@ -40,7 +40,7 @@ fn server() {
         .expect("cannot run server example");
 
     thread::sleep(time::Duration::from_secs(1));
-    
+
     let output = Command::new("curl")
         .arg("--version")
         .output()
@@ -50,7 +50,7 @@ fn server() {
 
     let output = Command::new("curl")
         .arg("--insecure")
-        .arg("--http1.0")
+        .arg("--http1.1")
         .arg("--verbose")
         .arg("https://localhost:1337")
         .output()
