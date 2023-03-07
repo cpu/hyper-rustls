@@ -38,7 +38,7 @@ fn server() {
         .spawn()
         .expect("cannot run server example");
 
-    thread::sleep(time::Duration::from_secs(10));
+    thread::sleep(time::Duration::from_secs(1));
 
     let output = Command::new("curl")
         .arg("--insecure")
@@ -61,7 +61,7 @@ fn custom_ca_store() {
         .spawn()
         .expect("cannot run server example");
 
-    thread::sleep(time::Duration::from_secs(10));
+    thread::sleep(time::Duration::from_secs(1));
 
     let rc = client_command()
         .arg("https://localhost:1338")
