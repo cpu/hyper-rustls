@@ -57,7 +57,7 @@ fn server() {
 
     let output = Command::new("curl")
         .arg("--insecure")
-        .arg("--http1.0")
+        .arg("--http2")
         .arg("--verbose")
         .arg("https://localhost:1337")
         .output()
