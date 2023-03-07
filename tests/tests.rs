@@ -40,14 +40,7 @@ fn server() {
         .expect("cannot run server example");
 
     thread::sleep(time::Duration::from_secs(1));
-
-    let output = Command::new("which")
-        .arg("curl")
-        .output()
-        .expect("couldn't which curl");
-    let str_output = String::from_utf8_lossy(&*output.stdout);
-    println!("curl bin: {:?}", str_output);
-
+    
     let output = Command::new("curl")
         .arg("--version")
         .output()
@@ -57,7 +50,7 @@ fn server() {
 
     let output = Command::new("curl")
         .arg("--insecure")
-        .arg("--http2")
+        .arg("--http1.0")
         .arg("--verbose")
         .arg("https://localhost:1337")
         .output()
