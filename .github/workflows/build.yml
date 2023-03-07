@@ -32,16 +32,13 @@ jobs:
           toolchain: ${{ matrix.rust }}
           override: true
 
-      - name: cargo check (default features)
-        run: cargo check --all-targets
-
       - name: cargo test (debug; default features)
-        run: cargo test --nocapture
+        run: cargo test -- --nocapture
         env:
           RUST_BACKTRACE: 1
 
       - name: cargo test (debug; all features)
-        run: cargo test --nocapture --all-features
+        run: cargo test --all-features -- --nocapture
         env:
           RUST_BACKTRACE: 1
 
